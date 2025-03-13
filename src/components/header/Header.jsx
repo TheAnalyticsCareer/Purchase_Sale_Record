@@ -122,7 +122,7 @@ function Header() {
             </Nav.Link>
 
             <NavDropdown title="User" id="navbarScrollingDropdown">
-              <NavDropdown.Item>Email:{email} </NavDropdown.Item>
+              <NavDropdown.Item>Email: {email} </NavDropdown.Item>
               <NavDropdown.Item>Department: {department}</NavDropdown.Item>
               <NavDropdown.Item>Company: {companyName}</NavDropdown.Item>
               <NavDropdown.Item href="/userSignUp">
