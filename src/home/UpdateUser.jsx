@@ -14,7 +14,7 @@ const UpdateUser = () => {
   const getUser = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/user//getUser/${companyName}/${user_id}`,
+        `https://purchase-sale-logic.onrender.com/user//getUser/${companyName}/${user_id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -49,7 +49,7 @@ const UpdateUser = () => {
         }
 
         await axios.put(
-          `http://localhost:5000/user//updateUser/${companyName}/${user_id}`,
+          `https://purchase-sale-logic.onrender.com/user//updateUser/${companyName}/${user_id}`,
           values,
           {
             headers: { Authorization: `Bearer ${token}` },

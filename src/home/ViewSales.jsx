@@ -1,163 +1,4 @@
-// import React from "react";
-// import axios from "axios";
-// import { useState,useEffect, useContext } from "react";
-// import { Link } from "react-router-dom";
-// import { SearchContext } from "../components/header/SearchContext";
 
-// const ViewSales = () => {
-//   const [data, setData] = useState("");
-//  const { searchText, triggerSearch, setTriggerSearch } = useContext(SearchContext);
-
-//   const companyName = localStorage.getItem("companyName");
-//   const token = localStorage.getItem("token");
-
-//   const getSalesHistory = async () => {
-//     try {
-
-//         if (!token){
-//             alert("you need to login to view sales history")
-//         }
-
-//       const res = await axios.get(
-//         `http://localhost:5000/sales//viewSalesRecord/${companyName}`,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-
-//       alert("Sales History Fetched Successfully");
-//       console.log("sales history res?.data---", res?.data);
-
-//       setData(res?.data.result);
-//       console.log("res?.data.result---", res?.data.result);
-//     } catch (err) {
-//       console.log("err when fetching sales history--", err);
-//     }
-//   };
-
-// //   ---------search sales--------
-
-// const search = async () => {
-//     try {
-//       const res = await axios.get(
-//         `http://localhost:5000/sales//searchSalesRecord/${companyName}/${searchText}`,
-//         {
-//           headers: { Authorization: `Bearer ${token}` },
-//         }
-//       );
-//       console.log("res data after search----",res?.data.results)
-//       setData(res?.data.results);
-//     } catch (err) {
-//       console.log("Error searching:", err);
-//     }
-//   };
-
-// //   ------------------------delete sales entry------------------------------
-
-// const deleteSaleEntry = async (sale_id) => {
-//     try {
-//       if (!token) {
-//         alert("You need to login to perform the delete action");
-//         return;
-//       }
-
-//       const option = window.confirm("You are about to delete a sale entry");
-
-//       if (!option) return;
-
-//       const res = await axios.delete(
-//         `http://localhost:5000/sales/deleteSalesRecord/${companyName}/${sale_id}`,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-
-//       alert("Deleted Successfully");
-
-//       getSalesHistory();
-
-//     } catch (err) {
-//       console.log("Error while deleting sale entry:", err);
-//       alert("Failed to delete entry. Please try again.");
-//     }
-//   };
-
-//   useEffect(() => {
-//     getSalesHistory();
-//   }, []);
-
-//    useEffect(() => {
-//       if (triggerSearch) {
-//         search();
-//         setTriggerSearch(false);
-//       }
-//     }, [triggerSearch]);
-
-//   return (
-//     <>
-//       <div style={{ margin: "20px auto", width: "98%" }}>
-//         {data?.length > 0 ? (
-//           <table className="table table-dark table-bordered">
-//             <thead>
-//               <tr>
-//                 <th>Sale Date</th>
-//                 <th>Sale Type</th>
-//                 <th>Sale Product</th>
-//                 <th>Sale Person</th>
-//                 <th>Sale Customer</th>
-//                 <th>Sale Amount</th>
-//                 <th>Sale Commission</th>
-//                 <th>Payment Type</th>
-//                 <th>Payment Condition</th>
-//                 <th>Payment Date</th>
-//                 <th>Created At</th>
-//                 <th>Actions</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {data?.map((list) => (
-//                 <tr key={list.created_at}>
-//                  <td>{new Date(list.sale_date).toLocaleDateString("en-CA")}</td>
-//                   <td>{list.sale_type}</td>
-//                   <td>{list.sale_product}</td>
-//                   <td>{list.sale_person}</td>
-//                   <td>{list.sale_customer}</td>
-//                   <td>{list.sale_amount}</td>
-//                   <td>{list.sale_commission}</td>
-//                   <td>{list.payment_type}</td>
-//                   <td>{list.payment_condition}</td>
-//                   <td>{new Date(list.payment_date).toLocaleDateString("en-CA")}</td>
-//                   <td>{new Date(list.created_at).toLocaleDateString("en-CA")}</td>
-//                   <td>
-//                     <Link to={`/updateSale/${list.sale_id}`}>
-//                       <button className="btn btn-outline-success">
-//                         Update
-//                       </button>
-//                     </Link>
-
-//                     <div>
-//                     <button onClick={()=>deleteSaleEntry(list.sale_id)} className="btn btn-outline-danger mt-2">
-//                       Delete
-//                     </button>
-//                     </div>
-//                   </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         ) : (
-//           <p style={{ color: "white" }}>No History Found</p>
-//         )}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ViewSales;
 
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
@@ -177,24 +18,7 @@ const ViewSales = () => {
 
   // ----------------sale history------------------------------------------
 
-  // const getSalesHistory = async () => {
-  //   try {
-  //     if (!token) {
-  //       alert("You need to login to view sales history");
-  //       return;
-  //     }
-
-  //     const res = await axios.get(
-  //       `http://localhost:5000/sales/viewSalesRecord/${companyName}`,
-  //       { headers: { Authorization: `Bearer ${token}` } }
-  //     );
-
-  //     console.log("Sales history fetched:", res?.data);
-  //     setData(res?.data.result);
-  //   } catch (err) {
-  //     console.error("Error fetching sales history:", err);
-  //   }
-  // };
+  
 
   const getSalesHistory = async () => {
     try {
@@ -210,7 +34,7 @@ const ViewSales = () => {
       console.log("Fetching for Year:", selectedYear);
 
       const res = await axios.get(
-        `http://localhost:5000/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+        `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -227,7 +51,7 @@ const ViewSales = () => {
   const search = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/sales/searchSalesRecord/${companyName}/${searchText}`,
+        `https://purchase-sale-logic.onrender.com/sales/searchSalesRecord/${companyName}/${searchText}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setData(res?.data.results);
@@ -249,7 +73,7 @@ const ViewSales = () => {
       if (!confirmDelete) return;
 
       await axios.delete(
-        `http://localhost:5000/sales/deleteSalesRecord/${companyName}/${sale_id}`,
+        `https://purchase-sale-logic.onrender.com/sales/deleteSalesRecord/${companyName}/${sale_id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -307,37 +131,7 @@ const ViewSales = () => {
 
   return (
     <div className="container mt-4">
-      {/* <div className="text-center text-light bg-dark p-3 rounded">
-        <div>Sales History</div>
-        <div className="timeInput">
-          <div className="month-inp">
-            <input
-              type="number"
-              min="1"
-              max="12"
-              step="1"
-              onChange={(e) => getMonth(e)}
-              placeholder="Enter Month (1-12)"
-              required
-            />
-          </div>
-          <div className="year-inp">
-            <input
-              type="number"
-              min="1900"
-              max="2100"
-              step="1"
-              onChange={(e) => getYear(e)}
-              placeholder="Enter Year"
-              required
-            />
-          </div>
-        </div>
-
-        <div>
-          <button onClick={() => getSalesHistory()}>Submit</button>
-        </div>
-      </div> */}
+      
 
       <div className="text-center text-light bg-dark p-4 rounded shadow-lg w-50 mx-auto my-5">
         <h3 className="mb-3">Sales History</h3>

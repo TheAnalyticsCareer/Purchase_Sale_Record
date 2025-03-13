@@ -16,7 +16,7 @@ function Header() {
   const email = localStorage.getItem("email");
   console.log("email in header----", email);
   let department = localStorage.getItem("department");
-  // department=department.toLowerCase();
+  
 
   const companyName = localStorage.getItem("companyName");
   const token = localStorage.getItem("token");
