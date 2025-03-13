@@ -267,7 +267,7 @@ const UpdatePurchase = () => {
   });
 
   return (
-    <div className="container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+    <div className="container d-flex justify-content-center align-items-center min-vh-100 bg-light my-5">
       <div className="card shadow-lg p-4 w-100" style={{ maxWidth: "600px" }}>
         <h2 className="text-center mb-4">Update Purchase Entry</h2>
         <form onSubmit={myFormik.handleSubmit}>
