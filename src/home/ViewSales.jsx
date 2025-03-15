@@ -30,8 +30,8 @@ const ViewSales = () => {
       let selectedMonth = month || today.getMonth() + 1;
       let selectedYear = year || today.getFullYear();
 
-      console.log("Fetching for Month:", selectedMonth);
-      console.log("Fetching for Year:", selectedYear);
+      // console.log("Fetching for Month:", selectedMonth);
+      // console.log("Fetching for Year:", selectedYear);
 
       const res = await axios.get(
         `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
@@ -56,7 +56,7 @@ const ViewSales = () => {
       );
       setData(res?.data.results);
     } catch (err) {
-      console.error("Error searching sales records:", err);
+      console.log("Error searching sales records:", err);
     }
   };
 
@@ -80,7 +80,7 @@ const ViewSales = () => {
       alert("Deleted Successfully");
       getSalesHistory();
     } catch (err) {
-      console.error("Error deleting sale entry:", err);
+      console.log("Error deleting sale entry:", err);
       alert("Failed to delete entry. Please try again.");
     }
   };

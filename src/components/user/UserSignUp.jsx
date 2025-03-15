@@ -29,7 +29,7 @@ const UserSignUp = () => {
 
         myFormik.resetForm();
 
-        console.log("User SignUp data ---->", res);
+        // console.log("User SignUp data ---->", res);
         alert("User Signed Up Successfully!");
 
         navigate("/userLogin");

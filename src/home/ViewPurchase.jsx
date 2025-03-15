@@ -28,8 +28,8 @@ const ViewPurchase = () => {
       let selectedMonth = month || today.getMonth() + 1;
       let selectedYear = year || today.getFullYear();
 
-      console.log("Fetching for Month:", selectedMonth);
-      console.log("Fetching for Year:", selectedYear);
+      // console.log("Fetching for Month:", selectedMonth);
+      // console.log("Fetching for Year:", selectedYear);
 
       const res = await axios.get(
         `https://purchase-sale-logic.onrender.com/purchase/viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}`,

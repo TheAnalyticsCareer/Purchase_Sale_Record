@@ -14,7 +14,7 @@ function Header() {
   const { searchText, setSearchText, setTriggerSearch } =
     useContext(SearchContext);
   const email = localStorage.getItem("email");
-  console.log("email in header----", email);
+  // console.log("email in header----", email);
   let department = localStorage.getItem("department");
   
 

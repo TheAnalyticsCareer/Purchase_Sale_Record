@@ -22,7 +22,7 @@ const UserLogin = () => {
 
         myFormik.resetForm();
 
-        console.log("User login response:", res);
+        // console.log("User login response:", res);
 
         // ---- Saving token and user info in local storage ----
         const token = res.data.token;
