@@ -51,35 +51,170 @@ const SaleDept = () => {
       <div className="card shadow-lg p-4 w-100" style={{ maxWidth: "600px" }}>
         <h2 className="text-center mb-4">Sale Entry Form</h2>
         <form onSubmit={myFormik.handleSubmit}>
-          {[
-            { name: "sale_date", type: "text", label: "Sale Date", placeholder: "YYYY-MM-DD" },
-            { name: "sale_type", type: "text", label: "Sale Type", placeholder: "Type of Sale" },
-            { name: "sale_product", type: "text", label: "Sale Product", placeholder: "Product Name" },
-            { name: "sale_person", type: "text", label: "Sale Person", placeholder: "Person Responsible" },
-            { name: "sale_customer", type: "text", label: "Sale Customer", placeholder: "Customer Name" },
-            { name: "sale_amount", type: "text", label: "Sale Amount", placeholder: "Enter Amount" },
-            { name: "sale_commission", type: "text", label: "Sale Commission", placeholder: "Commission Amount" },
-            { name: "payment_type", type: "text", label: "Payment Type", placeholder: "Cash / Credit" },
-            { name: "payment_condition", type: "text", label: "Payment Condition", placeholder: "Payment Terms" },
-            { name: "payment_date", type: "text", label: "Payment Date", placeholder: "YYYY-MM-DD" },
-          ].map((field) => (
-            <div className="mb-3" key={field.name}>
-              <label className="form-label" htmlFor={field.name}>
-                {field.label}
-              </label>
-              <input
-                type={field.type}
-                name={field.name}
-                id={field.name}
-                onChange={myFormik.handleChange}
-                value={myFormik.values[field.name]}
-                className="form-control"
-                placeholder={field.placeholder}
-                required
-                style={{ appearance: "none" }}
-              />
-            </div>
-          ))}
+          <div className="mb-3">
+            <label className="form-label" htmlFor="sale-Date">
+              Sale Date
+            </label>
+            <input
+              type="date"
+              name="sale_date"
+              id="sale-Date"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.sale_date}
+              className="form-control"
+              placeholder="YYYY-MM-DD"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="sale-Type">
+              Sale Type
+            </label>
+            <input
+              type="text"
+              name="sale_type"
+              id="sale-Type"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.sale_type}
+              className="form-control"
+              placeholder="Type of Sale"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="sale-Product">
+              Sale Product
+            </label>
+            <input
+              type="text"
+              name="sale_product"
+              id="sale-Product"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.sale_product}
+              className="form-control"
+              placeholder="Product Name"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="sale-Person">
+              Sale Person
+            </label>
+            <input
+              type="text"
+              name="sale_person"
+              id="sale-Person"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.sale_person}
+              className="form-control"
+              placeholder="Person Responsible"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="sale-Customer">
+              Sale Customer
+            </label>
+            <input
+              type="text"
+              name="sale_customer"
+              id="sale-Customer"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.sale_customer}
+              className="form-control"
+              placeholder="Customer Name"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="sale-Amount">
+              Sale Amount
+            </label>
+            <input
+              type="text"
+              name="sale_amount"
+              id="sale-Amount"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.sale_amount}
+              className="form-control"
+              placeholder="Enter Amount"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="sale-Commission">
+              Sale Commission
+            </label>
+            <input
+              type="text"
+              name="sale_commission"
+              id="sale-Commission"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.sale_commission}
+              className="form-control"
+              placeholder="Commission Amount"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="payment-Type">
+              Payment Type
+            </label>
+          
+
+            <select
+              name="payment_type"
+              id="payment-Type"
+              className="form-control"
+              value={myFormik.values.payment_type}
+              onChange={myFormik.handleChange}
+              required
+            >
+              <option value="">Select Payment Type</option>
+              <option value="Cash">Cash</option>
+              <option value="Credit">Credit</option>
+            </select>
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="payment-Condition">
+              Payment Condition
+            </label>
+            <input
+              type="text"
+              name="payment_condition"
+              id="payment-Condition"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.payment_condition}
+              className="form-control"
+              placeholder="Payment Terms"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label" htmlFor="payment-Date">
+              Payment Date
+            </label>
+            <input
+              type="date"
+              name="payment_date"
+              id="payment-Date"
+              onChange={myFormik.handleChange}
+              value={myFormik.values.payment_date}
+              className="form-control"
+              placeholder="YYYY-MM-DD"
+              required
+            />
+          </div>
+
           <div className="d-flex justify-content-center">
             <button type="submit" className="btn btn-primary w-100">
               Submit

@@ -10,6 +10,7 @@ const ViewPurchase = () => {
 
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+  const [date, setDate]=useState("")
 
   const { searchText, triggerSearch, setTriggerSearch } =
     useContext(SearchContext);
@@ -27,12 +28,13 @@ const ViewPurchase = () => {
 
       let selectedMonth = month || today.getMonth() + 1;
       let selectedYear = year || today.getFullYear();
+      let selectedDate=date 
 
       // console.log("Fetching for Month:", selectedMonth);
       // console.log("Fetching for Year:", selectedYear);
 
       const res = await axios.get(
-        `https://purchase-sale-logic.onrender.com/purchase/viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+        `https://purchase-sale-logic.onrender.com/purchase/viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -85,6 +87,22 @@ const ViewPurchase = () => {
       console.log("Error deleting purchase entry:", err);
       alert("Failed to delete entry. Please try again.");
     }
+  };
+
+  // ------------get date-------------------------
+
+  const getDate = (e) => {
+    let inputDate = e.target.value;
+  
+    if (inputDate < 1) {
+      inputDate = 1;
+    } else if (inputDate > 31) {
+      inputDate = 31;
+    }
+  
+    setDate(inputDate);
+   
+    console.log("Selected Date:", inputDate);
   };
 
   // ------------get month---------------------------
@@ -140,6 +158,17 @@ const ViewPurchase = () => {
         <h3 className="mb-3">Purchase History</h3>
 
         <div className="d-flex justify-content-center gap-3 mb-3">
+          <input
+            type="number"
+            min="1"
+            max="31"
+            step="1"
+            className="form-control text-center"
+            onChange={(e) => getDate(e)}
+            placeholder="Date (1-31)"
+            required
+            style={{ maxWidth: "150px" }}
+          />
           <input
             type="number"
             min="1"
