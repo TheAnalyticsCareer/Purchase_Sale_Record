@@ -255,7 +255,7 @@ const ViewSales = () => {
           />
 
 
-          <input
+          {/* <input
             type="number"
             min="1"
             max="12"
@@ -265,7 +265,7 @@ const ViewSales = () => {
             placeholder="Month (1-12)"
             required
             style={{ maxWidth: "150px" }}
-          />
+          /> */}
           <input
             type="number"
             min="1900"
