@@ -270,6 +270,8 @@
 // export default ViewPurchase;
 
 
+
+
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -310,7 +312,7 @@ const ViewPurchase = () => {
 
       if(date===""){
         const res = await axios.get(
-          `http://localhost:5000/purchase//viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+          `https://purchase-sale-logic.onrender.com/purchase//viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -321,7 +323,7 @@ const ViewPurchase = () => {
 
       // ------------------------------------------------------------------------------
       const res = await axios.get(
-        `http://localhost:5000/purchase//viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
+        `https://purchase-sale-logic.onrender.com/purchase//viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -338,7 +340,7 @@ const ViewPurchase = () => {
   const search = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/purchase/searchPurchaseRecord/${companyName}/${searchText}`,
+        `https://purchase-sale-logic.onrender.com/purchase/searchPurchaseRecord/${companyName}/${searchText}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -362,7 +364,7 @@ const ViewPurchase = () => {
       if (!option) return;
 
       await axios.delete(
-        `http://localhost:5000/purchase/deletePurchaseRecord/${companyName}/${purchase_id}`,
+        `https://purchase-sale-logic.onrender.com/purchase/deletePurchaseRecord/${companyName}/${purchase_id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -451,7 +453,7 @@ const ViewPurchase = () => {
   return (
     <div className="container mt-4">
       <div className="text-center text-light bg-dark p-4 rounded shadow-lg w-50 mx-auto my-5">
-        <h3 className="mb-3">Purchaseeeeeee History</h3>
+        <h3 className="mb-3">Purchase History</h3>
 
         <div className="d-flex justify-content-center gap-3 mb-3">
           <input
