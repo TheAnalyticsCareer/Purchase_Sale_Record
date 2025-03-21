@@ -451,7 +451,7 @@ const ViewPurchase = () => {
   return (
     <div className="container mt-4">
       <div className="text-center text-light bg-dark p-4 rounded shadow-lg w-50 mx-auto my-5">
-        <h3 className="mb-3">Purchase History</h3>
+        <h3 className="mb-3">Purchaseeeeeee History</h3>
 
         <div className="d-flex justify-content-center gap-3 mb-3">
           <input
