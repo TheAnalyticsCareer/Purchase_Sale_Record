@@ -8,6 +8,8 @@
 // const ViewSales = () => {
 //   const [month, setMonth] = useState("");
 //   const [year, setYear] = useState("");
+//   const [date, setDate]=useState("")
+
 //   const today = new Date();
 //   const [data, setData] = useState("");
 //   const { searchText, triggerSearch, setTriggerSearch } =
@@ -29,18 +31,35 @@
 
 //       let selectedMonth = month || today.getMonth() + 1;
 //       let selectedYear = year || today.getFullYear();
+//       let selectedDate=date ;
 
-//       // console.log("Fetching for Month:", selectedMonth);
-//       // console.log("Fetching for Year:", selectedYear);
+//       console.log("Fetching for Month:", selectedMonth);
+//       console.log("Fetching for Year:", selectedYear);
+//       console.log("Fetching for date:", selectedDate);
+
+//       if(date===""){
+//         const res = await axios.get(
+//           `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+//           {
+//             headers: { Authorization: `Bearer ${token}` },
+//           }
+//         );
+  
+//         setData(res?.data.result);
+//       }
+
+//       // ----------------------------------------------------------------
 
 //       const res = await axios.get(
-//         `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+//         `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
 //         {
 //           headers: { Authorization: `Bearer ${token}` },
 //         }
 //       );
 
 //       setData(res?.data.result);
+
+     
 //     } catch (err) {
 //       console.log("Error fetching sales history:", err);
 //     }
@@ -84,6 +103,21 @@
 //       alert("Failed to delete entry. Please try again.");
 //     }
 //   };
+
+
+
+//     // ------------get date-------------------------
+
+
+//     const getDate = (e) => {
+//       let inputDate = e.target.value;
+//       if (inputDate < 1 || inputDate > 31) {
+//         inputDate = ""; 
+//       }
+//       setDate(inputDate);
+//     };
+  
+
 
 //   // ------------get month---------------------------
 //   const getMonth = (e) => {
@@ -134,8 +168,22 @@
       
 
 //       <div className="text-center text-light bg-dark p-4 rounded shadow-lg w-50 mx-auto my-5">
-//         <h3 className="mb-3">Salesssssss History</h3>
+//         <h3 className="mb-3">Sales History</h3>
 //         <div className="d-flex justify-content-center gap-3 mb-3">
+
+//         <input
+//             type="number"
+//             min="1"
+//             max="31"
+//             step="1"
+//             className="form-control text-center"
+//             onChange={(e) => getDate(e)}
+//             placeholder="Date (1-31)"
+//             required
+//             style={{ maxWidth: "150px" }}
+//           />
+
+
 //           <input
 //             type="number"
 //             min="1"
@@ -243,6 +291,10 @@
 
 
 
+
+
+
+
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -251,7 +303,13 @@ import { SearchContext } from "../components/header/SearchContext";
 const ViewSales = () => {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
-  const [date, setDate]=useState("")
+  const [date, setDate] = useState("");
+
+  const [saleType, setsaleType] = useState(null);
+  const [saleProduct, setsaleProduct] = useState(null);
+  const [salePerson, setsalePerson] = useState(null);
+  const [saleCustomer, setsaleCustomer] = useState(null);
+  const [createdAt, setCreatedAt] = useState(null);
 
   const today = new Date();
   const [data, setData] = useState("");
@@ -260,10 +318,6 @@ const ViewSales = () => {
 
   const companyName = localStorage.getItem("companyName");
   const token = localStorage.getItem("token");
-
-  // ----------------sale history------------------------------------------
-
-  
 
   const getSalesHistory = async () => {
     try {
@@ -274,46 +328,49 @@ const ViewSales = () => {
 
       let selectedMonth = month || today.getMonth() + 1;
       let selectedYear = year || today.getFullYear();
-      let selectedDate=date ;
+      let selectedDate = date;
 
-      console.log("Fetching for Month:", selectedMonth);
-      console.log("Fetching for Year:", selectedYear);
-      console.log("Fetching for date:", selectedDate);
+      let res;
 
-      if(date===""){
-        const res = await axios.get(
-          `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+      if (saleType || saleProduct || salePerson || saleCustomer || createdAt) {
+        res = await axios.get(
+          `http://localhost:5000/sales/filterSaleRecord/${companyName}/${
+            saleType ? saleType : "null"
+          }/${saleProduct ? saleProduct : "null"}/${
+            salePerson ? salePerson : "null"
+          }/${saleCustomer ? saleCustomer : "null"}/${
+            createdAt ? createdAt : "null"
+          }`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-  
-        setData(res?.data.result);
+      } else if (selectedDate) {
+        res = await axios.get(
+          `http://localhost:5000/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+      } else {
+        res = await axios.get(
+          `http://localhost:5000/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
       }
 
-      // ----------------------------------------------------------------
-
-      const res = await axios.get(
-        `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      setData(res?.data.result);
-
-     
+      setData(res?.data.result || []);
     } catch (err) {
-      console.log("Error fetching sales history:", err);
+      console.log("Error fetching purchase history:", err);
     }
   };
-
-  // ------------------search---------------------------------------------------
 
   const search = async () => {
     try {
       const res = await axios.get(
-        `https://purchase-sale-logic.onrender.com/sales/searchSalesRecord/${companyName}/${searchText}`,
+        `http://localhost:5000/sales/searchSalesRecord/${companyName}/${searchText}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setData(res?.data.results);
@@ -335,7 +392,7 @@ const ViewSales = () => {
       if (!confirmDelete) return;
 
       await axios.delete(
-        `https://purchase-sale-logic.onrender.com/sales/deleteSalesRecord/${companyName}/${sale_id}`,
+        `http://localhost:5000/sales/deleteSalesRecord/${companyName}/${sale_id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -347,22 +404,34 @@ const ViewSales = () => {
     }
   };
 
+  const getSaleType = (e) => {
+    setsaleType(e.target.value);
+  };
 
+  const getSaleProduct = (e) => {
+    setsaleProduct(e.target.value);
+  };
 
-    // ------------get date-------------------------
+  const getSalePerson = (e) => {
+    setsalePerson(e.target.value);
+  };
 
+  const getSaleCustomer = (e) => {
+    setsaleCustomer(e.target.value);
+  };
 
-    const getDate = (e) => {
-      let inputDate = e.target.value;
-      if (inputDate < 1 || inputDate > 31) {
-        inputDate = ""; 
-      }
-      setDate(inputDate);
-    };
-  
+  const getCreatedAt = (e) => {
+    setCreatedAt(e.target.value);
+  };
 
+  const getDate = (e) => {
+    let inputDate = e.target.value;
+    if (inputDate < 1 || inputDate > 31) {
+      inputDate = "";
+    }
+    setDate(inputDate);
+  };
 
-  // ------------get month---------------------------
   const getMonth = (e) => {
     let inputMonth = e.target.value;
 
@@ -378,8 +447,6 @@ const ViewSales = () => {
       setMonth(today.getMonth() + 1);
     }
   };
-
-  // --------------get year--------------------------
 
   const getYear = (e) => {
     let inputYear = e.target.value;
@@ -408,56 +475,98 @@ const ViewSales = () => {
 
   return (
     <div className="container mt-4">
-      
-
-      <div className="text-center text-light bg-dark p-4 rounded shadow-lg w-50 mx-auto my-5">
-        <h3 className="mb-3">Sales History</h3>
-        <div className="d-flex justify-content-center gap-3 mb-3">
-
-        <input
-            type="number"
-            min="1"
-            max="31"
-            step="1"
-            className="form-control text-center"
-            onChange={(e) => getDate(e)}
-            placeholder="Date (1-31)"
-            required
-            style={{ maxWidth: "150px" }}
-          />
-
-
-          <input
-            type="number"
-            min="1"
-            max="12"
-            step="1"
-            className="form-control text-center"
-            onChange={(e) => getMonth(e)}
-            placeholder="Month (1-12)"
-            required
-            style={{ maxWidth: "150px" }}
-          />
-          <input
-            type="number"
-            min="1900"
-            max="2100"
-            step="1"
-            className="form-control text-center"
-            onChange={(e) => getYear(e)}
-            placeholder="Year"
-            required
-            style={{ maxWidth: "150px" }}
-          />
+      <div className="card shadow-lg p-4 mb-5 bg-white rounded">
+        <div className="card-body">
+          <h3 className="card-title text-center mb-4">Sales History</h3>
+          <div className="row g-3 mb-4">
+            <div className="col-md-2">
+              <input
+                type="text"
+                className="form-control"
+                onChange={getSaleType}
+                placeholder="Sale Type"
+              />
+            </div>
+            <div className="col-md-2">
+              <input
+                type="text"
+                className="form-control"
+                onChange={getSaleProduct}
+                placeholder="Sale Product"
+              />
+            </div>
+            <div className="col-md-2">
+              <input
+                type="text"
+                className="form-control"
+                onChange={getSalePerson}
+                placeholder="Sale Person"
+              />
+            </div>
+            <div className="col-md-2">
+              <input
+                type="text"
+                className="form-control"
+                onChange={getSaleCustomer}
+                placeholder="Sale Customer"
+              />
+            </div>
+            <div className="col-md-2">
+              <input
+                type="number"
+                min="1"
+                max="31"
+                step="1"
+                className="form-control"
+                onChange={getDate}
+                placeholder="Sale Date"
+              />
+            </div>
+            <div className="col-md-2">
+              <input
+                type="number"
+                min="1"
+                max="12"
+                step="1"
+                className="form-control"
+                onChange={getMonth}
+                placeholder="Sale Month"
+              />
+            </div>
+            <div className="col-md-2">
+              <input
+                type="number"
+                min="1900"
+                max="2100"
+                step="1"
+                className="form-control"
+                onChange={getYear}
+                placeholder="Sale Year"
+              />
+            </div>
+            <div className="col-md-2">
+              <input
+                type="date"
+                className="form-control"
+                onChange={getCreatedAt}
+                placeholder="Created At"
+              />
+            </div>
+            <div className="col-md-2 d-grid">
+              <button
+                className="btn btn-primary"
+                onClick={getSalesHistory}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
-        <button className="btn btn-primary" onClick={() => getSalesHistory()}>
-          Submit
-        </button>
       </div>
 
       {data?.length > 0 ? (
         <div className="table-responsive">
-          <table className="table table-hover table-bordered text-center">
+          <table className="table table-hover table-striped">
             <thead className="table-dark">
               <tr>
                 <th>Sale Date</th>
@@ -474,9 +583,9 @@ const ViewSales = () => {
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody className="table-light">
+            <tbody>
               {data.map((list) => (
-                <tr key={list.created_at}>
+                <tr key={list.sale_id}>
                   <td>
                     {new Date(list.sale_date).toLocaleDateString("en-CA")}
                   </td>
