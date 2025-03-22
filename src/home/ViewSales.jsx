@@ -334,7 +334,7 @@ const ViewSales = () => {
 
       if (saleType || saleProduct || salePerson || saleCustomer || createdAt) {
         res = await axios.get(
-          `http://localhost:5000/sales/filterSaleRecord/${companyName}/${
+          `https://purchase-sale-logic.onrender.com/sales/filterSaleRecord/${companyName}/${
             saleType ? saleType : "null"
           }/${saleProduct ? saleProduct : "null"}/${
             salePerson ? salePerson : "null"
@@ -347,14 +347,14 @@ const ViewSales = () => {
         );
       } else if (selectedDate) {
         res = await axios.get(
-          `http://localhost:5000/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
+          `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
       } else {
         res = await axios.get(
-          `http://localhost:5000/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+          `https://purchase-sale-logic.onrender.com/sales/viewSalesRecord/${companyName}/${selectedMonth}/${selectedYear}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -370,7 +370,7 @@ const ViewSales = () => {
   const search = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/sales/searchSalesRecord/${companyName}/${searchText}`,
+        `https://purchase-sale-logic.onrender.com/sales/searchSalesRecord/${companyName}/${searchText}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setData(res?.data.results);
@@ -392,7 +392,7 @@ const ViewSales = () => {
       if (!confirmDelete) return;
 
       await axios.delete(
-        `http://localhost:5000/sales/deleteSalesRecord/${companyName}/${sale_id}`,
+        `https://purchase-sale-logic.onrender.com/sales/deleteSalesRecord/${companyName}/${sale_id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
