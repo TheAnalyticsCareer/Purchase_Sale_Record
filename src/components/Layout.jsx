@@ -4,19 +4,17 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Layout() {
+  const navigate = useNavigate();
+  const department = localStorage.getItem("department");
+  const token = localStorage.getItem("token");
 
-  let navigate = useNavigate();
-  let department = localStorage.getItem("department");
-  let token = localStorage.getItem("token");
   useEffect(() => {
-   
-    alert("navigating to department");
-    if (token) {
-      navigate(`/${department}`);
+    if (token && department) {
+      navigate(`/${department}`, { replace: true });
+    } else {
+      navigate("/userLogin", { replace: true });
     }
-
-    navigate(`/userLogin`);
-  }, []);
+  }, [token, department, navigate]);
 
   return (
     <>

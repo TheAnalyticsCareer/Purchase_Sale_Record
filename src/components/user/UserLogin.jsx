@@ -178,7 +178,7 @@ const UserLogin = () => {
               setTimeout(() => {
                 navigate(`/${department}`);
                 window.location.reload();
-              }, 3000);
+              }, 1500);
     
               return "Login Successful!";
             },
