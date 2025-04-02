@@ -14,7 +14,7 @@ function Layout() {
     } else {
       navigate("/userLogin", { replace: true });
     }
-  }, [token, department, navigate]);
+  }, []); 
 
   return (
     <>
