@@ -4,12 +4,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Layout() {
-  let navigate = useNavigate();
+
 
   useEffect(() => {
+    let navigate = useNavigate();
     let department = localStorage.getItem("department");
     let token = localStorage.getItem("token");
-    
+
     if (token) {
       navigate(`/${department}`);
     }
