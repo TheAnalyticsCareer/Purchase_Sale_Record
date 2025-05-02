@@ -1,11 +1,16 @@
-// import React from "react";
+
+
+
+
+
+
+
+// import React, { useEffect } from "react";
 // import { useFormik } from "formik";
 // import axios from "axios";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
-
-
 
 // const PurchaseDept = () => {
 //   const myFormik = useFormik({
@@ -13,6 +18,10 @@
 //       purchase_date: "",
 //       purchase_type: "",
 //       purchase_product: "",
+//       quantity: "",
+//       quantityPicked: "",
+//       quantityLeftOver: "", // This will be calculated
+//       status:"",
 //       purchase_person: "",
 //       purchase_supplier: "",
 //       purchase_amount: "",
@@ -51,17 +60,61 @@
 //     },
 //   });
 
+//   // ------------------------------------------
+
+//   useEffect(() => {
+//     const quantity = parseFloat(myFormik.values.quantity) || 0;
+//     const quantityPicked = parseFloat(myFormik.values.quantityPicked) || 0;
+//     const difference = quantity - quantityPicked;
+
+//     // Only update if the values are valid numbers
+//     if (!isNaN(difference)) {
+//       myFormik.setFieldValue(
+//         "quantityLeftOver",
+//         Math.max(0, difference).toString()
+//       );
+//     }
+
+
+      
+//     if(quantityPicked===0){
+//       myFormik.setFieldValue("status","pending")
+//     } else if(quantityPicked===quantity){
+//       myFormik.setFieldValue("status","completed");
+//     }
+//     else{
+//       myFormik.setFieldValue("status","processing")
+//     }
+
+
+//   }, [myFormik.values.quantity, myFormik.values.quantityPicked]);
+
+//   // -----------------------------------------
+
 //   return (
-//     <div className="container-fluid" style={{ backgroundColor: '#F1F5FC', minHeight: '100vh', padding: '2rem' }}>
+//     <div
+//       className="container-fluid"
+//       style={{
+//         backgroundColor: "#F1F5FC",
+//         minHeight: "100vh",
+//         padding: "2rem",
+//       }}
+//     >
 //       <div className="row justify-content-center">
 //         <div className="col-lg-8 col-md-10 col-sm-12">
-//           <div className="card border-0 shadow-sm" style={{ borderRadius: '12px' }}>
-//             <div className="card-header" style={{ 
-//               backgroundColor: '#795FCD', 
-//               color: '#FFFFFF',
-//               padding: '1.25rem 1.5rem',
-//               borderRadius: '12px 12px 0 0'
-//             }}>
+//           <div
+//             className="card border-0 shadow-sm"
+//             style={{ borderRadius: "12px" }}
+//           >
+//             <div
+//               className="card-header"
+//               style={{
+//                 backgroundColor: "#795FCD",
+//                 color: "#FFFFFF",
+//                 padding: "1.25rem 1.5rem",
+//                 borderRadius: "12px 12px 0 0",
+//               }}
+//             >
 //               <h2 className="h5 mb-0">
 //                 <i className="bi bi-cart-plus-fill me-2"></i>
 //                 Purchase Entry
@@ -71,13 +124,16 @@
 //               </p>
 //             </div>
 
-//             <div className="card-body" style={{ padding: '1.5rem' }}>
+//             <div className="card-body" style={{ padding: "1.5rem" }}>
 //               <form onSubmit={myFormik.handleSubmit}>
 //                 <div className="row">
 //                   {/* Left Column */}
 //                   <div className="col-md-6">
 //                     <div className="mb-3">
-//                       <label htmlFor="purchase_date" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="purchase_date"
+//                         className="form-label fw-medium"
+//                       >
 //                         Purchase Date <span className="text-danger">*</span>
 //                       </label>
 //                       <input
@@ -87,13 +143,16 @@
 //                         name="purchase_date"
 //                         value={myFormik.values.purchase_date}
 //                         onChange={myFormik.handleChange}
-//                         style={{ borderRadius: '6px' }}
+//                         style={{ borderRadius: "6px" }}
 //                         required
 //                       />
 //                     </div>
 
 //                     <div className="mb-3">
-//                       <label htmlFor="purchase_type" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="purchase_type"
+//                         className="form-label fw-medium"
+//                       >
 //                         Purchase Type <span className="text-danger">*</span>
 //                       </label>
 //                       <select
@@ -102,7 +161,7 @@
 //                         name="purchase_type"
 //                         value={myFormik.values.purchase_type}
 //                         onChange={myFormik.handleChange}
-//                         style={{ borderRadius: '6px' }}
+//                         style={{ borderRadius: "6px" }}
 //                         required
 //                       >
 //                         <option value="">Select Type</option>
@@ -115,7 +174,10 @@
 //                     </div>
 
 //                     <div className="mb-3">
-//                       <label htmlFor="purchase_product" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="purchase_product"
+//                         className="form-label fw-medium"
+//                       >
 //                         Product/Service <span className="text-danger">*</span>
 //                       </label>
 //                       <input
@@ -126,13 +188,104 @@
 //                         placeholder="Enter product or service name"
 //                         value={myFormik.values.purchase_product}
 //                         onChange={myFormik.handleChange}
-//                         style={{ borderRadius: '6px' }}
+//                         style={{ borderRadius: "6px" }}
+//                         required
+//                       />
+//                     </div>
+//                     <div className="mb-3">
+//                       <label
+//                         htmlFor="quantity-ordered"
+//                         className="form-label fw-medium"
+//                       >
+//                         Quantity <span className="text-danger">*</span>
+//                       </label>
+//                       <input
+//                         type="number"
+//                           min="0"
+//                         className="form-control"
+//                         id="quantity-ordered"
+//                         name="quantity"
+//                         placeholder="Enter Ordered Quantity "
+//                         value={myFormik.values.quantity}
+//                         onChange={myFormik.handleChange}
+//                         style={{ borderRadius: "6px" }}
+//                         required
+//                       />
+//                     </div>
+//                     <div className="mb-3">
+//                       <label
+//                         htmlFor="quantity-Picked"
+//                         className="form-label fw-medium"
+//                       >
+//                         Quantity Picked <span className="text-danger">*</span>
+//                       </label>
+//                       <input
+//                         type="number"
+//                           min="0"
+//                         className="form-control"
+//                         id="quantity-Picked"
+//                         name="quantityPicked"
+//                         placeholder="Enter Picked Up Quantity "
+//                         value={myFormik.values.quantityPicked}
+//                         onChange={myFormik.handleChange}
+//                         style={{ borderRadius: "6px" }}
 //                         required
 //                       />
 //                     </div>
 
 //                     <div className="mb-3">
-//                       <label htmlFor="purchase_person" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="quantity-LeftOver"
+//                         className="form-label fw-medium"
+//                       >
+//                         Quantity Left Over
+//                       </label>
+//                       <input
+//                         type="number"
+//                         className="form-control"
+//                         id="quantity-LeftOver"
+//                         name="quantityLeftOver"
+//                         placeholder="0"
+//                         value={myFormik.values.quantityLeftOver}
+//                         readOnly 
+//                         style={{
+//                           borderRadius: "6px",
+//                           backgroundColor: "#f8f9fa",
+//                         }} 
+//                       />
+//                     </div>
+
+
+//                     <div className="mb-3">
+//                       <label
+//                         htmlFor="purchase-status"
+//                         className="form-label fw-medium"
+//                       >
+//                        Status
+//                       </label>
+//                       <input
+//                         type="text"
+//                         className="form-control"
+//                         id="purchase-status"
+//                         name="status"
+//                         placeholder="Pending"
+//                         value={myFormik.values.status}
+//                         readOnly 
+//                         style={{
+//                           borderRadius: "6px",
+//                           backgroundColor: "#f8f9fa",
+//                         }} 
+//                       />
+//                     </div>
+
+
+
+
+//                     <div className="mb-3">
+//                       <label
+//                         htmlFor="purchase_person"
+//                         className="form-label fw-medium"
+//                       >
 //                         Purchase Person <span className="text-danger">*</span>
 //                       </label>
 //                       <input
@@ -143,7 +296,7 @@
 //                         placeholder="Who authorized this purchase?"
 //                         value={myFormik.values.purchase_person}
 //                         onChange={myFormik.handleChange}
-//                         style={{ borderRadius: '6px' }}
+//                         style={{ borderRadius: "6px" }}
 //                         required
 //                       />
 //                     </div>
@@ -152,7 +305,10 @@
 //                   {/* Right Column */}
 //                   <div className="col-md-6">
 //                     <div className="mb-3">
-//                       <label htmlFor="purchase_supplier" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="purchase_supplier"
+//                         className="form-label fw-medium"
+//                       >
 //                         Supplier <span className="text-danger">*</span>
 //                       </label>
 //                       <input
@@ -163,17 +319,25 @@
 //                         placeholder="Supplier or vendor name"
 //                         value={myFormik.values.purchase_supplier}
 //                         onChange={myFormik.handleChange}
-//                         style={{ borderRadius: '6px' }}
+//                         style={{ borderRadius: "6px" }}
 //                         required
 //                       />
 //                     </div>
 
 //                     <div className="mb-3">
-//                       <label htmlFor="purchase_amount" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="purchase_amount"
+//                         className="form-label fw-medium"
+//                       >
 //                         Amount (₹) <span className="text-danger">*</span>
 //                       </label>
 //                       <div className="input-group">
-//                         <span className="input-group-text" style={{ borderRadius: '6px 0 0 6px' }}>₹</span>
+//                         <span
+//                           className="input-group-text"
+//                           style={{ borderRadius: "6px 0 0 6px" }}
+//                         >
+//                           ₹
+//                         </span>
 //                         <input
 //                           type="number"
 //                           className="form-control"
@@ -184,18 +348,26 @@
 //                           min="0"
 //                           value={myFormik.values.purchase_amount}
 //                           onChange={myFormik.handleChange}
-//                           style={{ borderRadius: '0 6px 6px 0' }}
+//                           style={{ borderRadius: "0 6px 6px 0" }}
 //                           required
 //                         />
 //                       </div>
 //                     </div>
 
 //                     <div className="mb-3">
-//                       <label htmlFor="purchase_commission" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="purchase_commission"
+//                         className="form-label fw-medium"
+//                       >
 //                         Commission (₹)
 //                       </label>
 //                       <div className="input-group">
-//                         <span className="input-group-text" style={{ borderRadius: '6px 0 0 6px' }}>₹</span>
+//                         <span
+//                           className="input-group-text"
+//                           style={{ borderRadius: "6px 0 0 6px" }}
+//                         >
+//                           ₹
+//                         </span>
 //                         <input
 //                           type="number"
 //                           className="form-control"
@@ -206,13 +378,16 @@
 //                           min="0"
 //                           value={myFormik.values.purchase_commission}
 //                           onChange={myFormik.handleChange}
-//                           style={{ borderRadius: '0 6px 6px 0' }}
+//                           style={{ borderRadius: "0 6px 6px 0" }}
 //                         />
 //                       </div>
 //                     </div>
 
 //                     <div className="mb-3">
-//                       <label htmlFor="payment_type" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="payment_type"
+//                         className="form-label fw-medium"
+//                       >
 //                         Payment Type <span className="text-danger">*</span>
 //                       </label>
 //                       <select
@@ -221,7 +396,7 @@
 //                         name="payment_type"
 //                         value={myFormik.values.payment_type}
 //                         onChange={myFormik.handleChange}
-//                         style={{ borderRadius: '6px' }}
+//                         style={{ borderRadius: "6px" }}
 //                         required
 //                       >
 //                         <option value="">Select Payment Type</option>
@@ -239,7 +414,10 @@
 //                 <div className="row">
 //                   <div className="col-md-6">
 //                     <div className="mb-3">
-//                       <label htmlFor="payment_condition" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="payment_condition"
+//                         className="form-label fw-medium"
+//                       >
 //                         Payment Terms <span className="text-danger">*</span>
 //                       </label>
 //                       <input
@@ -250,14 +428,17 @@
 //                         placeholder="e.g., Net 30, Advance 50%"
 //                         value={myFormik.values.payment_condition}
 //                         onChange={myFormik.handleChange}
-//                         style={{ borderRadius: '6px' }}
+//                         style={{ borderRadius: "6px" }}
 //                         required
 //                       />
 //                     </div>
 //                   </div>
 //                   <div className="col-md-6">
 //                     <div className="mb-4">
-//                       <label htmlFor="payment_date" className="form-label fw-medium">
+//                       <label
+//                         htmlFor="payment_date"
+//                         className="form-label fw-medium"
+//                       >
 //                         Payment Due Date <span className="text-danger">*</span>
 //                       </label>
 //                       <input
@@ -267,7 +448,7 @@
 //                         name="payment_date"
 //                         value={myFormik.values.payment_date}
 //                         onChange={myFormik.handleChange}
-//                         style={{ borderRadius: '6px' }}
+//                         style={{ borderRadius: "6px" }}
 //                         required
 //                       />
 //                     </div>
@@ -278,11 +459,11 @@
 //                   <button
 //                     type="submit"
 //                     className="btn py-2 fw-medium"
-//                     style={{ 
-//                       backgroundColor: '#795FCD',
-//                       color: 'white',
-//                       borderRadius: '6px',
-//                       border: 'none'
+//                     style={{
+//                       backgroundColor: "#795FCD",
+//                       color: "white",
+//                       borderRadius: "6px",
+//                       border: "none",
 //                     }}
 //                   >
 //                     <i className="bi bi-check-circle me-2"></i>
@@ -292,17 +473,21 @@
 //               </form>
 //             </div>
 
-//             <div className="card-footer" style={{ 
-//               backgroundColor: '#F9FAFE',
-//               color: '#6c757d',
-//               fontSize: '0.875rem',
-//               padding: '1rem 1.5rem',
-//               borderTop: '1px solid rgba(0,0,0,0.05)',
-//               borderRadius: '0 0 12px 12px'
-//             }}>
+//             <div
+//               className="card-footer"
+//               style={{
+//                 backgroundColor: "#F9FAFE",
+//                 color: "#6c757d",
+//                 fontSize: "0.875rem",
+//                 padding: "1rem 1.5rem",
+//                 borderTop: "1px solid rgba(0,0,0,0.05)",
+//                 borderRadius: "0 0 12px 12px",
+//               }}
+//             >
 //               <div className="text-center">
 //                 <small>
-//                   All fields marked with <span className="text-danger">*</span> are required
+//                   All fields marked with <span className="text-danger">*</span>{" "}
+//                   are required
 //                 </small>
 //               </div>
 //             </div>
@@ -310,12 +495,12 @@
 //         </div>
 //       </div>
 //       <ToastContainer position="top-center" autoClose={3000} />
-      
 //     </div>
 //   );
 // };
 
 // export default PurchaseDept;
+
 
 
 
@@ -345,7 +530,7 @@ const PurchaseDept = () => {
       quantity: "",
       quantityPicked: "",
       quantityLeftOver: "", // This will be calculated
-      status:"",
+      status: "",
       purchase_person: "",
       purchase_supplier: "",
       purchase_amount: "",
@@ -384,8 +569,6 @@ const PurchaseDept = () => {
     },
   });
 
-  // ------------------------------------------
-
   useEffect(() => {
     const quantity = parseFloat(myFormik.values.quantity) || 0;
     const quantityPicked = parseFloat(myFormik.values.quantityPicked) || 0;
@@ -399,21 +582,14 @@ const PurchaseDept = () => {
       );
     }
 
-
-      
-    if(quantityPicked===0){
-      myFormik.setFieldValue("status","pending")
-    } else if(quantityPicked===quantity){
-      myFormik.setFieldValue("status","completed");
+    if (quantityPicked === 0) {
+      myFormik.setFieldValue("status", "pending");
+    } else if (quantityPicked === quantity) {
+      myFormik.setFieldValue("status", "completed");
+    } else {
+      myFormik.setFieldValue("status", "processing");
     }
-    else{
-      myFormik.setFieldValue("status","processing")
-    }
-
-
   }, [myFormik.values.quantity, myFormik.values.quantityPicked]);
-
-  // -----------------------------------------
 
   return (
     <div
@@ -425,7 +601,7 @@ const PurchaseDept = () => {
       }}
     >
       <div className="row justify-content-center">
-        <div className="col-lg-8 col-md-10 col-sm-12">
+        <div className="col-lg-10 col-md-12">
           <div
             className="card border-0 shadow-sm"
             style={{ borderRadius: "12px" }}
@@ -448,12 +624,12 @@ const PurchaseDept = () => {
               </p>
             </div>
 
-            <div className="card-body" style={{ padding: "1.5rem" }}>
+            <div className="card-body" style={{ padding: "2rem" }}>
               <form onSubmit={myFormik.handleSubmit}>
                 <div className="row">
                   {/* Left Column */}
                   <div className="col-md-6">
-                    <div className="mb-3">
+                    <div className="mb-4">
                       <label
                         htmlFor="purchase_date"
                         className="form-label fw-medium"
@@ -467,12 +643,12 @@ const PurchaseDept = () => {
                         name="purchase_date"
                         value={myFormik.values.purchase_date}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       />
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-4">
                       <label
                         htmlFor="purchase_type"
                         className="form-label fw-medium"
@@ -485,7 +661,7 @@ const PurchaseDept = () => {
                         name="purchase_type"
                         value={myFormik.values.purchase_type}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       >
                         <option value="">Select Type</option>
@@ -497,7 +673,7 @@ const PurchaseDept = () => {
                       </select>
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-4">
                       <label
                         htmlFor="purchase_product"
                         className="form-label fw-medium"
@@ -512,11 +688,12 @@ const PurchaseDept = () => {
                         placeholder="Enter product or service name"
                         value={myFormik.values.purchase_product}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       />
                     </div>
-                    <div className="mb-3">
+
+                    <div className="mb-4">
                       <label
                         htmlFor="quantity-ordered"
                         className="form-label fw-medium"
@@ -525,18 +702,19 @@ const PurchaseDept = () => {
                       </label>
                       <input
                         type="number"
-                          min="0"
+                        min="0"
                         className="form-control"
                         id="quantity-ordered"
                         name="quantity"
-                        placeholder="Enter Ordered Quantity "
+                        placeholder="Enter Ordered Quantity"
                         value={myFormik.values.quantity}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       />
                     </div>
-                    <div className="mb-3">
+
+                    <div className="mb-4">
                       <label
                         htmlFor="quantity-Picked"
                         className="form-label fw-medium"
@@ -545,19 +723,22 @@ const PurchaseDept = () => {
                       </label>
                       <input
                         type="number"
-                          min="0"
+                        min="0"
                         className="form-control"
                         id="quantity-Picked"
                         name="quantityPicked"
-                        placeholder="Enter Picked Up Quantity "
+                        placeholder="Enter Picked Up Quantity"
                         value={myFormik.values.quantityPicked}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       />
                     </div>
+                  </div>
 
-                    <div className="mb-3">
+                  {/* Right Column */}
+                  <div className="col-md-6">
+                    <div className="mb-4">
                       <label
                         htmlFor="quantity-LeftOver"
                         className="form-label fw-medium"
@@ -571,21 +752,21 @@ const PurchaseDept = () => {
                         name="quantityLeftOver"
                         placeholder="0"
                         value={myFormik.values.quantityLeftOver}
-                        readOnly 
+                        readOnly
                         style={{
                           borderRadius: "6px",
                           backgroundColor: "#f8f9fa",
-                        }} 
+                          height: "45px"
+                        }}
                       />
                     </div>
 
-
-                    <div className="mb-3">
+                    <div className="mb-4">
                       <label
                         htmlFor="purchase-status"
                         className="form-label fw-medium"
                       >
-                       Status
+                        Status
                       </label>
                       <input
                         type="text"
@@ -594,18 +775,16 @@ const PurchaseDept = () => {
                         name="status"
                         placeholder="Pending"
                         value={myFormik.values.status}
-                        readOnly 
+                        readOnly
                         style={{
                           borderRadius: "6px",
                           backgroundColor: "#f8f9fa",
-                        }} 
+                          height: "45px"
+                        }}
                       />
                     </div>
 
-
-
-
-                    <div className="mb-3">
+                    <div className="mb-4">
                       <label
                         htmlFor="purchase_person"
                         className="form-label fw-medium"
@@ -620,15 +799,12 @@ const PurchaseDept = () => {
                         placeholder="Who authorized this purchase?"
                         value={myFormik.values.purchase_person}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       />
                     </div>
-                  </div>
 
-                  {/* Right Column */}
-                  <div className="col-md-6">
-                    <div className="mb-3">
+                    <div className="mb-4">
                       <label
                         htmlFor="purchase_supplier"
                         className="form-label fw-medium"
@@ -643,12 +819,12 @@ const PurchaseDept = () => {
                         placeholder="Supplier or vendor name"
                         value={myFormik.values.purchase_supplier}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       />
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-4">
                       <label
                         htmlFor="purchase_amount"
                         className="form-label fw-medium"
@@ -658,7 +834,7 @@ const PurchaseDept = () => {
                       <div className="input-group">
                         <span
                           className="input-group-text"
-                          style={{ borderRadius: "6px 0 0 6px" }}
+                          style={{ borderRadius: "6px 0 0 6px", height: "45px" }}
                         >
                           ₹
                         </span>
@@ -672,13 +848,18 @@ const PurchaseDept = () => {
                           min="0"
                           value={myFormik.values.purchase_amount}
                           onChange={myFormik.handleChange}
-                          style={{ borderRadius: "0 6px 6px 0" }}
+                          style={{ borderRadius: "0 6px 6px 0", height: "45px" }}
                           required
                         />
                       </div>
                     </div>
+                  </div>
+                </div>
 
-                    <div className="mb-3">
+                {/* Bottom Row */}
+                <div className="row">
+                  <div className="col-md-4">
+                    <div className="mb-4">
                       <label
                         htmlFor="purchase_commission"
                         className="form-label fw-medium"
@@ -688,7 +869,7 @@ const PurchaseDept = () => {
                       <div className="input-group">
                         <span
                           className="input-group-text"
-                          style={{ borderRadius: "6px 0 0 6px" }}
+                          style={{ borderRadius: "6px 0 0 6px", height: "45px" }}
                         >
                           ₹
                         </span>
@@ -702,12 +883,14 @@ const PurchaseDept = () => {
                           min="0"
                           value={myFormik.values.purchase_commission}
                           onChange={myFormik.handleChange}
-                          style={{ borderRadius: "0 6px 6px 0" }}
+                          style={{ borderRadius: "0 6px 6px 0", height: "45px" }}
                         />
                       </div>
                     </div>
+                  </div>
 
-                    <div className="mb-3">
+                  <div className="col-md-4">
+                    <div className="mb-4">
                       <label
                         htmlFor="payment_type"
                         className="form-label fw-medium"
@@ -720,7 +903,7 @@ const PurchaseDept = () => {
                         name="payment_type"
                         value={myFormik.values.payment_type}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       >
                         <option value="">Select Payment Type</option>
@@ -732,12 +915,9 @@ const PurchaseDept = () => {
                       </select>
                     </div>
                   </div>
-                </div>
 
-                {/* Bottom Row - Full Width */}
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="mb-3">
+                  <div className="col-md-4">
+                    <div className="mb-4">
                       <label
                         htmlFor="payment_condition"
                         className="form-label fw-medium"
@@ -752,11 +932,14 @@ const PurchaseDept = () => {
                         placeholder="e.g., Net 30, Advance 50%"
                         value={myFormik.values.payment_condition}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       />
                     </div>
                   </div>
+                </div>
+
+                <div className="row">
                   <div className="col-md-6">
                     <div className="mb-4">
                       <label
@@ -772,7 +955,7 @@ const PurchaseDept = () => {
                         name="payment_date"
                         value={myFormik.values.payment_date}
                         onChange={myFormik.handleChange}
-                        style={{ borderRadius: "6px" }}
+                        style={{ borderRadius: "6px", height: "45px" }}
                         required
                       />
                     </div>
@@ -788,6 +971,8 @@ const PurchaseDept = () => {
                       color: "white",
                       borderRadius: "6px",
                       border: "none",
+                      height: "50px",
+                      fontSize: "1.05rem"
                     }}
                   >
                     <i className="bi bi-check-circle me-2"></i>
