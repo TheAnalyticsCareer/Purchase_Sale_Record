@@ -673,15 +673,15 @@ const ViewPurchase = () => {
 
           <div className="stat-card">
             <span className="stat-label">Total Quantity Ordered</span>
-            <span className="stat-value">₹{quantityOrdered.toFixed(2)}</span>
+            <span className="stat-value">{quantityOrdered.toFixed(2)}</span>
           </div>
           <div className="stat-card">
             <span className="stat-label">Total Quantity Dispatched</span>
-            <span className="stat-value">₹{quantityDispatched.toFixed(2)}</span>
+            <span className="stat-value">{quantityDispatched.toFixed(2)}</span>
           </div>
           <div className="stat-card">
             <span className="stat-label">Total Quantity Left</span>
-            <span className="stat-value">₹{quantityLeft.toFixed(2)}</span>
+            <span className="stat-value">{quantityLeft.toFixed(2)}</span>
           </div>
 
           

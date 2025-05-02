@@ -513,13 +513,12 @@
 
 
 
-
-import React, { useEffect } from "react";
-import { useFormik } from "formik";
-import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react"
+import { useFormik } from "formik"
+import axios from "axios"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const PurchaseDept = () => {
   const myFormik = useFormik({
@@ -542,53 +541,46 @@ const PurchaseDept = () => {
 
     onSubmit: async (values) => {
       try {
-        const token = localStorage.getItem("token");
-        const companyName = localStorage.getItem("companyName");
+        const token = localStorage.getItem("token")
+        const companyName = localStorage.getItem("companyName")
 
         if (!token) {
-          toast.warn("You need to be logged in to submit purchase entries.");
-          return;
+          toast.warn("You need to be logged in to submit purchase entries.")
+          return
         }
 
-        await axios.post(
-          `https://purchase-sale-logic.onrender.com/purchase/purchaseEntry/${companyName}`,
-          values,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        await axios.post(`https://purchase-sale-logic.onrender.com/purchase/purchaseEntry/${companyName}`, values, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
 
-        myFormik.resetForm();
-        toast.success("Purchase entry recorded successfully!");
+        myFormik.resetForm()
+        toast.success("Purchase entry recorded successfully!")
       } catch (err) {
-        console.log(err);
-        toast.error("Failed to record purchase entry. Please try again.");
+        console.log(err)
+        toast.error("Failed to record purchase entry. Please try again.")
       }
     },
-  });
+  })
 
   useEffect(() => {
-    const quantity = parseFloat(myFormik.values.quantity) || 0;
-    const quantityPicked = parseFloat(myFormik.values.quantityPicked) || 0;
-    const difference = quantity - quantityPicked;
+    const quantity = Number.parseFloat(myFormik.values.quantity) || 0
+    const quantityPicked = Number.parseFloat(myFormik.values.quantityPicked) || 0
+    const difference = quantity - quantityPicked
 
     if (!isNaN(difference)) {
-      myFormik.setFieldValue(
-        "quantityLeftOver",
-        Math.max(0, difference).toString()
-      );
+      myFormik.setFieldValue("quantityLeftOver", Math.max(0, difference).toString())
     }
 
     if (quantityPicked === 0) {
-      myFormik.setFieldValue("status", "pending");
+      myFormik.setFieldValue("status", "pending")
     } else if (quantityPicked === quantity) {
-      myFormik.setFieldValue("status", "completed");
+      myFormik.setFieldValue("status", "completed")
     } else {
-      myFormik.setFieldValue("status", "processing");
+      myFormik.setFieldValue("status", "processing")
     }
-  }, [myFormik.values.quantity, myFormik.values.quantityPicked]);
+  }, [myFormik.values.quantity, myFormik.values.quantityPicked])
 
   return (
     <div
@@ -601,10 +593,7 @@ const PurchaseDept = () => {
     >
       <div className="row justify-content-center">
         <div className="col-lg-8 col-md-10 col-sm-12">
-          <div
-            className="card border-0 shadow-sm"
-            style={{ borderRadius: "12px" }}
-          >
+          <div className="card border-0 shadow-sm" style={{ borderRadius: "12px" }}>
             <div
               className="card-header"
               style={{
@@ -626,13 +615,10 @@ const PurchaseDept = () => {
             <div className="card-body" style={{ padding: "1.5rem" }}>
               <form onSubmit={myFormik.handleSubmit}>
                 <div className="row">
-                  {/* Left Column */}
+                  {/* Left Column - 7 fields */}
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <label
-                        htmlFor="purchase_date"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="purchase_date" className="form-label fw-medium">
                         Purchase Date <span className="text-danger">*</span>
                       </label>
                       <input
@@ -648,10 +634,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="purchase_type"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="purchase_type" className="form-label fw-medium">
                         Purchase Type <span className="text-danger">*</span>
                       </label>
                       <select
@@ -673,10 +656,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="purchase_product"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="purchase_product" className="form-label fw-medium">
                         Product/Service <span className="text-danger">*</span>
                       </label>
                       <input
@@ -693,10 +673,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="quantity-ordered"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="quantity-ordered" className="form-label fw-medium">
                         Quantity <span className="text-danger">*</span>
                       </label>
                       <input
@@ -714,10 +691,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="quantity-Picked"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="quantity-Picked" className="form-label fw-medium">
                         Quantity Picked <span className="text-danger">*</span>
                       </label>
                       <input
@@ -735,10 +709,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="quantity-LeftOver"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="quantity-LeftOver" className="form-label fw-medium">
                         Quantity Left Over
                       </label>
                       <input
@@ -752,19 +723,13 @@ const PurchaseDept = () => {
                         style={{
                           borderRadius: "6px",
                           backgroundColor: "#f8f9fa",
-                          height: "40px"
+                          height: "40px",
                         }}
                       />
                     </div>
-                  </div>
 
-                  {/* Right Column */}
-                  <div className="col-md-6">
                     <div className="mb-3">
-                      <label
-                        htmlFor="purchase-status"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="purchase-status" className="form-label fw-medium">
                         Status
                       </label>
                       <input
@@ -778,16 +743,16 @@ const PurchaseDept = () => {
                         style={{
                           borderRadius: "6px",
                           backgroundColor: "#f8f9fa",
-                          height: "40px"
+                          height: "40px",
                         }}
                       />
                     </div>
+                  </div>
 
+                  {/* Right Column - 7 fields */}
+                  <div className="col-md-6">
                     <div className="mb-3">
-                      <label
-                        htmlFor="purchase_person"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="purchase_person" className="form-label fw-medium">
                         Purchase Person <span className="text-danger">*</span>
                       </label>
                       <input
@@ -804,10 +769,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="purchase_supplier"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="purchase_supplier" className="form-label fw-medium">
                         Supplier <span className="text-danger">*</span>
                       </label>
                       <input
@@ -824,17 +786,11 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="purchase_amount"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="purchase_amount" className="form-label fw-medium">
                         Amount (₹) <span className="text-danger">*</span>
                       </label>
                       <div className="input-group">
-                        <span
-                          className="input-group-text"
-                          style={{ borderRadius: "6px 0 0 6px", height: "40px" }}
-                        >
+                        <span className="input-group-text" style={{ borderRadius: "6px 0 0 6px", height: "40px" }}>
                           ₹
                         </span>
                         <input
@@ -854,17 +810,11 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="purchase_commission"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="purchase_commission" className="form-label fw-medium">
                         Commission (₹)
                       </label>
                       <div className="input-group">
-                        <span
-                          className="input-group-text"
-                          style={{ borderRadius: "6px 0 0 6px", height: "40px" }}
-                        >
+                        <span className="input-group-text" style={{ borderRadius: "6px 0 0 6px", height: "40px" }}>
                           ₹
                         </span>
                         <input
@@ -883,10 +833,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="payment_type"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="payment_type" className="form-label fw-medium">
                         Payment Type <span className="text-danger">*</span>
                       </label>
                       <select
@@ -908,10 +855,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="payment_condition"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="payment_condition" className="form-label fw-medium">
                         Payment Terms <span className="text-danger">*</span>
                       </label>
                       <input
@@ -928,10 +872,7 @@ const PurchaseDept = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label
-                        htmlFor="payment_date"
-                        className="form-label fw-medium"
-                      >
+                      <label htmlFor="payment_date" className="form-label fw-medium">
                         Payment Due Date <span className="text-danger">*</span>
                       </label>
                       <input
@@ -979,8 +920,7 @@ const PurchaseDept = () => {
             >
               <div className="text-center">
                 <small>
-                  All fields marked with <span className="text-danger">*</span>{" "}
-                  are required
+                  All fields marked with <span className="text-danger">*</span> are required
                 </small>
               </div>
             </div>
@@ -989,7 +929,7 @@ const PurchaseDept = () => {
       </div>
       <ToastContainer position="top-center" autoClose={3000} />
     </div>
-  );
-};
+  )
+}
 
-export default PurchaseDept;
+export default PurchaseDept
