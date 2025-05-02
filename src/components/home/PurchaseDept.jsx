@@ -366,7 +366,7 @@ const PurchaseDept = () => {
         }
 
         await axios.post(
-          `http://localhost:5000/purchase/purchaseEntry/${companyName}`,
+          `https://purchase-sale-logic.onrender.com/purchase/purchaseEntry/${companyName}`,
           values,
           {
             headers: {

@@ -404,7 +404,7 @@ const UpdateSale = () => {
   const getUniqueSale = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/sales/getUniqueSale/${companyName}/${sale_id}`,
+        `https://purchase-sale-logic.onrender.com/sales/getUniqueSale/${companyName}/${sale_id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -459,7 +459,7 @@ const UpdateSale = () => {
         }
 
         await axios.put(
-          `http://localhost:5000/sales/updateSalesRecord/${companyName}/${sale_id}`,
+          `https://purchase-sale-logic.onrender.com/sales/updateSalesRecord/${companyName}/${sale_id}`,
           values,
           {
             headers: { Authorization: `Bearer ${token}` },

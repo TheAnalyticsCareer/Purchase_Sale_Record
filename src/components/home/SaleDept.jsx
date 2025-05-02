@@ -361,7 +361,7 @@ const SaleDept = () => {
         }
 
         await axios.post(
-          `http://localhost:5000/sales/salesEntry/${companyName}`,
+          `https://purchase-sale-logic.onrender.com/sales/salesEntry/${companyName}`,
           values,
           {
             headers: {

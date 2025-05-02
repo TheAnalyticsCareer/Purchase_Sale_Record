@@ -502,7 +502,7 @@ const ViewPurchase = () => {
         createdAt
       ) {
         res = await axios.get(
-          `http://localhost:5000/purchase/filterPurchaseRecord/${companyName}/${
+          `https://purchase-sale-logic.onrender.com/purchase/filterPurchaseRecord/${companyName}/${
             purchaseType ? purchaseType : "null"
           }/${purchaseProduct ? purchaseProduct : "null"}/${
             purchasePerson ? purchasePerson : "null"
@@ -515,14 +515,14 @@ const ViewPurchase = () => {
         );
       } else if (selectedDate) {
         res = await axios.get(
-          `http://localhost:5000/purchase/viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
+          `https://purchase-sale-logic.onrender.com/purchase/viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}/${selectedDate}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
       } else {
         res = await axios.get(
-          `http://localhost:5000/purchase/viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}`,
+          `https://purchase-sale-logic.onrender.com/purchase/viewPurchaseRecord/${companyName}/${selectedMonth}/${selectedYear}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -542,7 +542,7 @@ const ViewPurchase = () => {
   const search = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/purchase/searchPurchaseRecord/${companyName}/${searchText}`,
+        `https://purchase-sale-logic.onrender.com/purchase/searchPurchaseRecord/${companyName}/${searchText}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -565,7 +565,7 @@ const ViewPurchase = () => {
       if (!option) return;
 
       await axios.delete(
-        `http://localhost:5000/purchase/deletePurchaseRecord/${companyName}/${purchase_id}`,
+        `https://purchase-sale-logic.onrender.com/purchase/deletePurchaseRecord/${companyName}/${purchase_id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
